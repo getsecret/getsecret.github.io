@@ -81,23 +81,23 @@
     <div class="wrapper">
         <div class="container">
             <h1>Hello, is this me?</h1>
-            <h2>I’m really into coding as a hobby.</h2>
+            <p>I’m really into coding as a hobby.</p>
             <p>Go to <a href="https://github.com/explore" target="_blank">Github</a></p>
 
             <div class="game-section">
-                <h2>Snake Game</h2>
+                <h3>Snake Game</h3>
 
                 <div class="controls">
                     <label for="difficulty">level:</label>
                     <select id="difficulty" onchange="changeDifficulty()">
-                        <option value="400">Easy</option>
+                        <option value="300">Easy</option>
                         <option value="200" selected>Medium</option>
                         <option value="100">Hard</option>
                     </select>
                     <button onclick="restartGame()">New Game</button>
                 </div>
 
-                <canvas id="gameCanvas" width="600" height="400"></canvas>
+                <canvas id="gameCanvas" width="500" height="400"></canvas>
                 <div id="score">score: 0</div>
             </div>
 
@@ -141,7 +141,7 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.fillStyle = "#ff5050";
-            const foodSize = gridSize * 1.4;
+            const foodSize = gridSize * 0.8;
             const offset = (foodSize - gridSize) / 2;
             foods.forEach(food => {
                 ctx.fillRect(
