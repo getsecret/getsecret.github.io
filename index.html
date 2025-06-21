@@ -113,61 +113,80 @@
         const gridSize = 20;
         const tileCount = canvas.width / gridSize;
 
-        let snake, food, dx, dy, score, gameLoop;
+        let foods = [];
+        const totalFoods = 99;
         let speed = 100;
 
         function initGame() {
-            snake = [{ x: 10, y: 10 }];
-            food = { x: 15, y: 15 };
-            dx = 0;
-            dy = 0;
-            score = 0;
-            scoreDisplay.textContent = "score: 0";
-            if (gameLoop) clearInterval(gameLoop);
-            gameLoop = setInterval(draw, speed);
+        snake = [{ x: 10, y: 10 }];
+        dx = 0;
+        dy = 0;
+        score = 0;
+        scoreDisplay.textContent = "score: 0";
+        generateFoods();
+        if (gameLoop) clearInterval(gameLoop);
+        gameLoop = setInterval(draw, speed);
         }
 
         function draw() {
-            // เคลียร์หน้าจอ
-            ctx.fillStyle = "#000";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // เคลียร์หน้าจอ
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // วาดอาหาร
-            ctx.fillStyle = "#ff5050";
-            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
+    // วาดอาหาร (ใหญ่ขึ้น 1.4 เท่า)
+    ctx.fillStyle = "#ff5050";
+    const foodSize = gridSize * 1.4;
+    const offset = (foodSize - gridSize) / 2;
+    foods.forEach(food => {
+        ctx.fillRect(
+            food.x * gridSize - offset,
+            food.y * gridSize - offset,
+            foodSize,
+            foodSize
+        );
+    });
 
-            // วาดงู
-            ctx.fillStyle = "#00ffff";
-            snake.forEach(segment => {
-                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 1, gridSize - 1);
-            });
+    // วาดงู
+    ctx.fillStyle = "#00ffff";
+    snake.forEach(segment => {
+        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 1, gridSize - 1);
+    });
 
-            // เคลื่อนที่
-            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-            snake.unshift(head);
+    // เคลื่อนที่
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+    snake.unshift(head);
 
-            // กินอาหาร
-            if (head.x === food.x && head.y === food.y) {
-                score++;
-                scoreDisplay.textContent = "คะแนน: " + score;
-                food = {
-                    x: Math.floor(Math.random() * tileCount),
-                    y: Math.floor(Math.random() * tileCount)
-                };
-            } else {
-                snake.pop();
-            }
-
-            // ตรวจสอบชนขอบ/ตัวเอง
-            if (
-                head.x < 0 || head.x >= tileCount ||
-                head.y < 0 || head.y >= tileCount ||
-                snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)
-            ) {
-                alert("score: " + score);
-                initGame();
-            }
+    // ตรวจสอบว่าหัวงูชนอาหารชิ้นไหน
+    let ate = false;
+    for (let i = 0; i < foods.length; i++) {
+        if (head.x === foods[i].x && head.y === foods[i].y) {
+            ate = true;
+            foods.splice(i, 1);
+            score++;
+            scoreDisplay.textContent = "score: " + score;
+            break;
         }
+    }
+    if (!ate) {
+        snake.pop();
+    }
+
+    // ชนขอบหรือชนตัวเอง
+    if (
+        head.x < 0 || head.x >= tileCount ||
+        head.y < 0 || head.y >= tileCount ||
+        snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)
+    ) {
+        alert("Game Over! Final score: " + score);
+        initGame();
+    }
+
+    // ชนะเมื่อกินครบ 99 ชิ้น
+    if (foods.length === 0) {
+        alert("🎉 YOU WIN! Final score: " + score);
+        initGame();
+    }
+}
 
         function changeDirection(e) {
             if (e.key === "ArrowUp" && dy === 0) {
@@ -194,6 +213,15 @@
             speed = parseInt(select.value);
             restartGame();
         }
+        function generateFoods() {
+    foods = [];
+    for (let i = 0; i < totalFoods; i++) {
+        foods.push({
+            x: Math.floor(Math.random() * tileCount),
+            y: Math.floor(Math.random() * tileCount)
+        });
+    }
+}
 
         document.addEventListener("keydown", changeDirection);
         window.onload = initGame;
