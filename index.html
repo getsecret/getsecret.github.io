@@ -2,17 +2,28 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>หน้าเว็บพื้นหลังดำ</title>
+    <title>หน้าเว็บพื้นหลังดำ กลางจอ</title>
     <style>
-        body {
+        html, body {
+            height: 100%;
+            margin: 0;
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
             padding: 20px;
         }
 
         a {
-            color: #00ffff; /* สีฟ้าอ่อน */
+            color: #00ffff;
         }
 
         footer {
@@ -20,27 +31,33 @@
             font-size: 0.9em;
             color: gray;
         }
+
+        img {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1>สวัสดีครับ!</h1>
-    <p>นี่คือหน้าเว็บ HTML ตัวอย่างที่มีพื้นหลังสีดำ</p>
+    <div class="container">
+        <h1>สวัสดีครับ!</h1>
+        <p>นี่คือหน้าเว็บ</p>
 
-    <h2>รายการสิ่งที่ชอบ</h2>
-    <ul>
-        <li>อ่านหนังสือ</li>
-        <li>ฟังเพลง</li>
-        <li>เขียนโค้ด</li>
-    </ul>
+        <h2>รายการสิ่งที่อาจจะชอบ</h2>
+        <ul>
+            <li>เขียนโค้ด</li>
+            <li>เขียนโค้ด</li>
+            <li>เขียนโค้ด</li>
+        </ul>
 
-    <h2>ลิงก์ที่น่าสนใจ</h2>
-    <p>ไปที่เว็บไซต์ <a href="https://www.google.com" target="_blank">Google</a></p>
+        <h2>ลิงก์ที่น่าสนใจ</h2>
+        <p>ไปที่เว็บไซต์ <a href="https://github.com/explore">Github</a></p>
 
-    <h2>รูปภาพ</h2>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfXGE9KZW7GtoqzrBrwXfRAdaap1D_wARCrA&s/150" alt="ภาพตัวอย่าง">
+        <h2>รูปภาพ</h2>
+        <img src="https://via.placeholder.com/150" alt="ภาพตัวอย่าง">
 
-    <footer>
-        <p>สร้างโดย คุณโตน © 2025</p>
-    </footer>
+        <footer>
+            <p>สร้างโดย คุณต้น © 2025</p>
+        </footer>
+    </div>
 </body>
 </html>
