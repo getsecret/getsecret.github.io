@@ -5,19 +5,26 @@
     <title>หน้าเว็บพื้นหลังดำ กลางจอ</title>
     <style>
         html, body {
-            height: 100%;
             margin: 0;
+            padding: 0;
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
+            height: 100%;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100%;
+            align-items: center;
             text-align: center;
             padding: 20px;
         }
@@ -27,7 +34,8 @@
         }
 
         footer {
-            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
             font-size: 0.9em;
             color: gray;
         }
@@ -38,22 +46,24 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>สวัสดีครับ!</h1>
-        <p>นี่คือหน้าเว็บ</p>
+    <div class="wrapper">
+        <div class="container">
+            <h1>สวัสดีครับ!</h1>
+            <p>นี่คือหน้าเว็บ</p>
 
-        <h2>รายการสิ่งที่อาจจะชอบ</h2>
-        <ul>
-            <li>เขียนโค้ด</li>
-            <li>เขียนโค้ด</li>
-            <li>เขียนโค้ด</li>
-        </ul>
+            <h2>รายการสิ่งที่อาจจะชอบ</h2>
+            <ul>
+                <li>เขียนโค้ด</li>
+                <li>เขียนโค้ด</li>
+                <li>เขียนโค้ด</li>
+            </ul>
 
-        <h2>ลิงก์ที่น่าสนใจ</h2>
-        <p>ไปที่เว็บไซต์ <a href="https://github.com/explore">Github</a></p>
+            <h2>ลิงก์ที่น่าสนใจ</h2>
+            <p>ไปที่เว็บไซต์ <a href="https://github.com/explore">Github</a></p>
 
-        <h2>รูปภาพ</h2>
-        <img src="https://via.placeholder.com/150" alt="ภาพตัวอย่าง">
+            <h2>รูปภาพ</h2>
+            <img src="https://via.placeholder.com/150" alt="ภาพตัวอย่าง">
+        </div>
 
         <footer>
             <p>สร้างโดย คุณต้น © 2025</p>
