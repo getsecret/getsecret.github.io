@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>_*_</title>
+    <title>_T_</title>
     <style>
         html, body {
             margin: 0;
@@ -82,33 +82,30 @@
         <div class="container">
             <h1>Hello, is this me?</h1>
             <p>***************************</p>
-
             <h2>I’m really into coding as a hobby.</h2>
-            <h2>Here are some interesting links.</h2>
             <p>Go to <a href="https://github.com/explore" target="_blank">Github</a></p>
-
-            <h2>img</h2>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIWwryHZBCr1ttG8jykq9FsO7k2YkITUmMaw&s/150" alt="luckycat">
-        </div>
 
         <div class="game-section">
             <h2>Snake Game</h2>
 
             <div class="controls">
-                <label for="difficulty">เลือกระดับความยาก:</label>
+                <label for="difficulty">level:</label>
                 <select id="difficulty" onchange="changeDifficulty()">
-                    <option value="400">ง่าย</option>
-                    <option value="200" selected>ปานกลาง</option>
-                    <option value="100">ยาก</option>
+                    <option value="400">Easy</option>
+                    <option value="200" selected>Medium</option>
+                    <option value="100">Hard</option>
                 </select>
-                <button onclick="restartGame()">เริ่มเกมใหม่</button>
+                <button onclick="restartGame()">New Game</button>
             </div>
 
             <canvas id="gameCanvas" width="600" height="400"></canvas>
-            <div id="score">คะแนน: 0</div>
+            <div id="score">score: 0</div>
         </div>
 
         <footer>
+            <h2>img</h2>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIWwryHZBCr1ttG8jykq9FsO7k2YkITUmMaw&s/150" alt="luckycat">
+        </div>
             <p>Created by Mr. Ton. © 2025</p>
         </footer>
     </div>
@@ -172,7 +169,7 @@
                 head.y < 0 || head.y >= tileCount ||
                 snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)
             ) {
-                alert("จบเกม! คะแนนของคุณคือ: " + score);
+                alert("score: " + score);
                 initGame();
             }
         }
