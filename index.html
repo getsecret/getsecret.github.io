@@ -81,10 +81,8 @@
     <div class="wrapper">
         <div class="container">
             <h1>Hello, is this me?</h1>
-            <p>***************************</p>
             <h2>I’m really into coding as a hobby.</h2>
             <p>Go to <a href="https://github.com/explore" target="_blank">Github</a></p>
-
         <div class="game-section">
             <h2>Snake Game</h2>
 
@@ -127,7 +125,7 @@
             dx = 0;
             dy = 0;
             score = 0;
-            scoreDisplay.textContent = "คะแนน: 0";
+            scoreDisplay.textContent = "score: 0";
             if (gameLoop) clearInterval(gameLoop);
             gameLoop = setInterval(draw, speed);
         }
