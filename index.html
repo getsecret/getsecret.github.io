@@ -10,7 +10,16 @@
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
-            height: 100%;
+            min-height: 100vh;
+        }
+
+        a {
+            color: #00ffff;
+        }
+
+        img {
+            margin-top: 10px;
+            max-width: 100%;
         }
 
         .wrapper {
@@ -20,17 +29,8 @@
         }
 
         .container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            padding: 40px 20px;
             text-align: center;
-            padding: 20px;
-        }
-
-        a {
-            color: #00ffff;
         }
 
         footer {
@@ -40,8 +40,34 @@
             color: gray;
         }
 
-        img {
-            margin-top: 10px;
+        /* ส่วนของเกม */
+        .game-section {
+            padding: 50px 20px;
+            background-color: #111;
+            text-align: center;
+        }
+
+        #score {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: #00ffff;
+            position: absolute;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: top 0.2s, left 0.2s;
+        }
+
+        .game-wrapper {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -59,15 +85,48 @@
             </ul>
 
             <h2>Here are some interesting links.</h2>
-            <p>Go to <a href="https://github.com/explore">Github</a></p>
+            <p>Go to <a href="https://github.com/explore" target="_blank">Github</a></p>
 
             <h2>img</h2>
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIWwryHZBCr1ttG8jykq9FsO7k2YkITUmMaw&s/150" alt="luckycat">
+        </div>
+
+        <div class="game-section">
+            <h2>🎮 Click the Box Game</h2>
+            <div id="score">Score: 0</div>
+            <div class="game-wrapper">
+                <div id="box" onclick="hitBox()"></div>
+            </div>
         </div>
 
         <footer>
             <p>Created by Mr. Ton. © 2025</p>
         </footer>
     </div>
+
+    <script>
+        const box = document.getElementById("box");
+        const scoreDisplay = document.getElementById("score");
+        const gameWrapper = document.querySelector(".game-wrapper");
+        let score = 0;
+
+        function randomPosition() {
+            const maxX = gameWrapper.clientWidth - 100;
+            const maxY = gameWrapper.clientHeight - 100;
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            box.style.left = x + "px";
+            box.style.top = y + "px";
+        }
+
+        function hitBox() {
+            score++;
+            scoreDisplay.textContent = "Score: " + score;
+            randomPosition();
+        }
+
+        // เริ่มต้นกล่อง
+        randomPosition();
+    </script>
 </body>
 </html>
