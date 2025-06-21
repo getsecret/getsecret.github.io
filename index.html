@@ -40,7 +40,6 @@
             color: gray;
         }
 
-        /* ส่วนของเกมงู */
         .game-section {
             padding: 50px 20px;
             background-color: #111;
@@ -50,11 +49,31 @@
         canvas {
             background-color: #000;
             border: 2px solid #00ffff;
+            margin-top: 20px;
         }
 
         #score {
             margin-top: 10px;
             font-size: 18px;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        button, select {
+            padding: 8px 16px;
+            margin: 5px;
+            font-size: 16px;
+            background-color: #00ffff;
+            border: none;
+            border-radius: 4px;
+            color: black;
+            cursor: pointer;
+        }
+
+        button:hover, select:hover {
+            background-color: #00dddd;
         }
     </style>
 </head>
@@ -65,12 +84,6 @@
             <p>***************************</p>
 
             <h2>I’m really into coding as a hobby.</h2>
-            <ul>
-                <li>coding</li>
-                <li>coding</li>
-                <li>coding</li>
-            </ul>
-
             <h2>Here are some interesting links.</h2>
             <p>Go to <a href="https://github.com/explore" target="_blank">Github</a></p>
 
@@ -78,10 +91,20 @@
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIWwryHZBCr1ttG8jykq9FsO7k2YkITUmMaw&s/150" alt="luckycat">
         </div>
 
-        <!-- เริ่มเกมงู -->
         <div class="game-section">
             <h2>Snake Game</h2>
-            <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+            <div class="controls">
+                <label for="difficulty">เลือกระดับความยาก:</label>
+                <select id="difficulty" onchange="changeDifficulty()">
+                    <option value="400">ง่าย</option>
+                    <option value="200" selected>ปานกลาง</option>
+                    <option value="100">ยาก</option>
+                </select>
+                <button onclick="restartGame()">เริ่มเกมใหม่</button>
+            </div>
+
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
             <div id="score">คะแนน: 0</div>
         </div>
 
@@ -93,18 +116,27 @@
     <script>
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
+        const scoreDisplay = document.getElementById("score");
 
         const gridSize = 20;
         const tileCount = canvas.width / gridSize;
 
-        let snake = [{ x: 10, y: 10 }];
-        let food = { x: 15, y: 15 };
-        let dx = 0;
-        let dy = 0;
-        let score = 0;
+        let snake, food, dx, dy, score, gameLoop;
+        let speed = 100;
+
+        function initGame() {
+            snake = [{ x: 10, y: 10 }];
+            food = { x: 15, y: 15 };
+            dx = 0;
+            dy = 0;
+            score = 0;
+            scoreDisplay.textContent = "คะแนน: 0";
+            if (gameLoop) clearInterval(gameLoop);
+            gameLoop = setInterval(draw, speed);
+        }
 
         function draw() {
-            // ล้างหน้าจอ
+            // เคลียร์หน้าจอ
             ctx.fillStyle = "#000";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -114,18 +146,18 @@
 
             // วาดงู
             ctx.fillStyle = "#00ffff";
-            snake.forEach((segment) => {
+            snake.forEach(segment => {
                 ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 1, gridSize - 1);
             });
 
-            // ย้ายหัวงู
+            // เคลื่อนที่
             const head = { x: snake[0].x + dx, y: snake[0].y + dy };
             snake.unshift(head);
 
-            // ถ้ากินอาหาร
+            // กินอาหาร
             if (head.x === food.x && head.y === food.y) {
                 score++;
-                document.getElementById("score").textContent = "คะแนน: " + score;
+                scoreDisplay.textContent = "คะแนน: " + score;
                 food = {
                     x: Math.floor(Math.random() * tileCount),
                     y: Math.floor(Math.random() * tileCount)
@@ -134,14 +166,14 @@
                 snake.pop();
             }
 
-            // ชนขอบ/ชนตัวเอง
+            // ตรวจสอบชนขอบ/ตัวเอง
             if (
                 head.x < 0 || head.x >= tileCount ||
                 head.y < 0 || head.y >= tileCount ||
                 snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)
             ) {
-                alert("คะแนนของคุณคือ:" + score);
-                document.location.reload();
+                alert("จบเกม! คะแนนของคุณคือ: " + score);
+                initGame();
             }
         }
 
@@ -161,8 +193,18 @@
             }
         }
 
+        function restartGame() {
+            initGame();
+        }
+
+        function changeDifficulty() {
+            const select = document.getElementById("difficulty");
+            speed = parseInt(select.value);
+            restartGame();
+        }
+
         document.addEventListener("keydown", changeDirection);
-        setInterval(draw, 100);
+        window.onload = initGame;
     </script>
 </body>
 </html>
