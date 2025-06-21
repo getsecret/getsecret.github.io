@@ -140,7 +140,7 @@
                 head.y < 0 || head.y >= tileCount ||
                 snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)
             ) {
-                alert("เกมจบ! คะแนนของคุณคือ: " + score);
+                alert("คะแนนของคุณคือ:" + score);
                 document.location.reload();
             }
         }
